@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Innovia — Innovius Capital (Print)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Urbanist', sans-serif; background: #fff; color: #0D0D0D; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .page {
+    width: 1440px;
+    height: 900px;
+    background: #F9F9F9;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    break-after: page;
+    break-inside: avoid;
+    position: relative;
+  }
+  .page:last-child { break-after: auto; }
+
+  /* Nav */
+  .nav {
+    height: 56px; background: #fff; border-bottom: 1px solid #E0E0E0;
+    display: flex; align-items: center; padding: 0 32px; gap: 20; flex-shrink: 0;
+  }
+  .nav-logo {
+    width: 28px; height: 28px; background: #B4FFB6; border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #142B11; flex-shrink: 0; letter-spacing: -0.02em;
+  }
+  .nav-title { font-size: 14px; font-weight: 600; color: #0D0D0D; letter-spacing: -0.01em; }
+  .nav-sep { color: #D0D0D0; font-size: 14px; }
+  .nav-crumb { font-size: 13px; color: #888; font-weight: 400; }
+  .nav-crumb-active { font-size: 13px; color: #444; font-weight: 500; }
+
+  /* Shared */
+  .label-upper {
+    font-size: 11px; font-weight: 500; color: #888;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .mint-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 20px; background: #B4FFB6; color: #0D0D0D;
+    font-size: 14px; font-weight: 500; border: none; border-radius: 4px;
+    font-family: 'Urbanist', sans-serif; white-space: nowrap;
+  }
+  .ghost-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; background: transparent; color: #444;
+    font-size: 13px; font-weight: 500; border: 1px solid #D0D0D0; border-radius: 4px;
+    font-family: 'Urbanist', sans-serif;
+  }
+
+  /* ── PAGE 1: DASHBOARD ── */
+  .dash-body { flex: 1; padding: 40px 48px; max-width: 1100px; width: 100%; margin: 0 auto; }
+  .dash-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 32px; }
+  .dash-count { font-size: 32px; font-weight: 500; letter-spacing: -0.02em; margin-top: 8px; }
+  .filter-bar { display: flex; gap: 8px; margin-bottom: 24px; }
+  .filter-pill {
+    font-size: 12px; font-weight: 500; border-radius: 4px; padding: 5px 12px; border: 1px solid;
+  }
+  .filter-pill.active { background: #0D0D0D; color: #fff; border-color: #0D0D0D; }
+  .filter-pill.inactive { background: transparent; color: #888; border-color: #E0E0E0; }
+  .table-header {
+    display: grid; grid-template-columns: 1fr 140px 100px 120px 120px;
+    border-bottom: 1px solid #E0E0E0; padding-bottom: 10px;
+  }
+  .th { font-size: 11px; font-weight: 500; color: #888; letter-spacing: 0.06em; text-transform: uppercase; padding: 0 12px; }
+  .table-row {
+    display: grid; grid-template-columns: 1fr 140px 100px 120px 120px;
+    border-bottom: 1px solid #E0E0E0;
+  }
+  .table-row.hover { background: #F4F4F4; }
+  .td { padding: 18px 12px; display: flex; align-items: center; }
+  .company-name { font-size: 15px; font-weight: 500; color: #0D0D0D; }
+  .sector-text { font-size: 13px; color: #444; }
+  .stage-badge { font-size: 12px; font-weight: 500; color: #888; background: #F0F0F0; border-radius: 3px; padding: 3px 8px; }
+  .date-text { font-size: 13px; color: #888; }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-right: 8px; }
+  .status-text { font-size: 12px; font-weight: 500; color: #444; }
+
+  /* ── PAGE 2: UPLOAD ── */
+  .upload-body { flex: 1; display: flex; align-items: center; justify-content: center; padding: 48px; }
+  .upload-zone {
+    width: 100%; max-width: 600px; border: 2px dashed #C8C8C8; border-radius: 4px;
+    padding: 80px 40px; display: flex; flex-direction: column; align-items: center; gap: 20px;
+    background: #fff;
+  }
+  .upload-arrow { font-size: 36px; color: #D0D0D0; line-height: 1; }
+  .upload-title { font-size: 18px; font-weight: 500; color: #0D0D0D; margin-bottom: 8px; text-align: center; }
+  .upload-sub { font-size: 14px; color: #888; text-align: center; }
+  .upload-divider { display: flex; align-items: center; gap: 12px; width: 100%; max-width: 280px; }
+  .upload-divider-line { flex: 1; height: 1px; background: #E0E0E0; }
+  .upload-or { font-size: 12px; color: #C0C0C0; }
+
+  /* ── PAGE 3: DEAL REVIEW ── */
+  .review-body { flex: 1; display: flex; overflow: hidden; }
+  .review-left { width: 60%; background: #2A2A2A; display: flex; flex-direction: column; overflow: hidden; border-right: 1px solid #1a1a1a; }
+  .slide-strip { display: flex; gap: 6px; padding: 10px 14px; border-bottom: 1px solid #1a1a1a; flex-shrink: 0; overflow: hidden; }
+  .slide-thumb {
+    flex-shrink: 0; width: 56px; height: 36px; border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px; color: rgba(255,255,255,0.5); font-weight: 500; border: 2px solid transparent;
+  }
+  .slide-thumb.active { border-color: #B4FFB6; }
+  .slide-main { flex: 1; overflow: hidden; padding: 24px 32px; display: flex; flex-direction: column; gap: 20px; }
+  .slide-card {
+    flex-shrink: 0; width: 100%; aspect-ratio: 16/9; border-radius: 3px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    padding: 32px 48px; position: relative; overflow: hidden;
+  }
+  .slide-badge { position: absolute; top: 16px; left: 16px; font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; }
+  .slide-accent { width: 32px; height: 2px; background: #B4FFB6; margin-bottom: 8px; }
+  .slide-title { font-size: 22px; font-weight: 600; color: #fff; letter-spacing: -0.02em; text-align: center; line-height: 1.2; }
+  .slide-sub { font-size: 12px; color: rgba(255,255,255,0.5); text-align: center; max-width: 360px; line-height: 1.5; }
+  .slide-num { position: absolute; bottom: 14px; right: 16px; font-size: 10px; color: rgba(255,255,255,0.2); font-weight: 500; }
+  .review-right { width: 40%; display: flex; flex-direction: column; overflow: hidden; }
+  .obs-header { padding: 16px 24px; border-bottom: 1px solid #E0E0E0; flex-shrink: 0; }
+  .obs-company { font-size: 14px; font-weight: 500; color: #0D0D0D; }
+  .obs-list { flex: 1; overflow: hidden; padding: 16px 24px; display: flex; flex-direction: column; gap: 12px; }
+  .obs-card { background: #fff; border: 1px solid #E0E0E0; border-radius: 4px; overflow: hidden; }
+  .obs-stripe { height: 3px; }
+  .obs-inner { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .obs-meta { display: flex; align-items: center; gap: 8px; }
+  .obs-type-badge { font-size: 10px; font-weight: 600; border-radius: 3px; padding: 2px 7px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .obs-slide-chip { font-size: 11px; color: #888; background: #F4F4F4; border-radius: 3px; padding: 2px 7px; font-weight: 500; }
+  .obs-text { font-size: 13px; color: #0D0D0D; line-height: 1.55; font-weight: 400; }
+  .obs-actions { display: flex; align-items: center; gap: 8px; }
+  .obs-rate-label { font-size: 11px; color: #888; margin-right: 4px; }
+  .rate-btn { width: 28px; height: 28px; border: 1px solid #E0E0E0; border-radius: 4px; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #888; }
+  .reply-link { margin-left: auto; font-size: 11px; color: #888; font-weight: 500; }
+  .obs-footer { padding: 16px 24px; border-top: 1px solid #E0E0E0; background: #fff; flex-shrink: 0; }
+  .obs-progress { font-size: 12px; color: #888; margin-bottom: 12px; }
+
+  /* ── PAGE 4: SCORE SUMMARY ── */
+  .score-body { flex: 1; overflow: hidden; }
+  .score-inner { max-width: 760px; margin: 0 auto; padding: 40px; }
+  .back-link { font-size: 13px; color: #888; margin-bottom: 32px; display: flex; align-items: center; gap: 6px; }
+  .score-hero { display: flex; align-items: flex-end; gap: 32px; margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid #E0E0E0; }
+  .score-number { font-size: 80px; font-weight: 600; color: #0D0D0D; line-height: 1; letter-spacing: -0.04em; }
+  .score-denom { font-size: 28px; font-weight: 400; color: #C0C0C0; }
+  .score-verdict { font-size: 14px; color: #444; line-height: 1.65; }
+  .breakdown-section { margin-bottom: 32px; }
+  .dim-row { display: grid; grid-template-columns: 110px 1fr 100px 68px; gap: 16px; align-items: center; border-bottom: 1px solid #F0F0F0; padding: 14px 0; }
+  .dim-row:last-child { border-bottom: none; }
+  .dim-label { font-size: 14px; font-weight: 500; color: #0D0D0D; }
+  .dim-score-num { font-size: 20px; font-weight: 600; color: #0D0D0D; letter-spacing: -0.02em; margin-top: 2px; }
+  .dim-bar-track { height: 4px; background: #F0F0F0; border-radius: 2px; margin-bottom: 8px; overflow: hidden; }
+  .dim-bar-fill { height: 100%; border-radius: 2px; }
+  .dim-rationale { font-size: 12px; color: #888; line-height: 1.5; }
+  .dim-badge { font-size: 11px; font-weight: 600; border-radius: 3px; padding: 3px 9px; text-align: right; }
+  .dim-rating-btns { display: flex; gap: 6px; }
+  .score-notes { margin-bottom: 32px; }
+  .notes-box { width: 100%; min-height: 60px; font-size: 14px; color: #888; font-style: italic; border: 1px solid #E0E0E0; border-radius: 4px; padding: 14px 16px; line-height: 1.6; font-family: 'Urbanist', sans-serif; }
+  .score-actions { display: flex; gap: 12px; padding-top: 24px; border-top: 1px solid #E0E0E0; }
+
+  @media print {
+    @page { size: 1440px 900px; margin: 0; }
+    body { background: #fff; }
+    .page { break-after: page; page-break-after: always; }
+    .page:last-child { break-after: auto; page-break-after: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PAGE 1: DASHBOARD                                  -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="nav">
+    <div class="nav-logo">NN</div>
+    <span class="nav-title">Innovia</span>
+  </div>
+  <div class="dash-body">
+    <div class="dash-header">
+      <div>
+        <div class="label-upper">Deal Pipeline</div>
+        <div class="dash-count">5 deals</div>
+      </div>
+      <div class="mint-btn"><span>→</span> Upload New Deck</div>
+    </div>
+    <div class="filter-bar">
+      <div class="filter-pill active">All</div>
+      <div class="filter-pill inactive">In Review</div>
+      <div class="filter-pill inactive">Score Generated</div>
+    </div>
+    <div class="table-header">
+      <span class="th">Company</span>
+      <span class="th">Sector</span>
+      <span class="th">Stage</span>
+      <span class="th">Uploaded</span>
+      <span class="th">Status</span>
+    </div>
+    <!-- Row 1 -->
+    <div class="table-row hover">
+      <div class="td"><div class="company-name">Meridian AI</div></div>
+      <div class="td"><span class="sector-text">Enterprise SaaS</span></div>
+      <div class="td"><span class="stage-badge">Series A</span></div>
+      <div class="td"><span class="date-text">Apr 14, 2026</span></div>
+      <div class="td">
+        <div class="status-dot" style="background:#B4FFB6;border:1px solid #7DC87F;"></div>
+        <span class="status-text">Score: 74</span>
+      </div>
+    </div>
+    <!-- Row 2 -->
+    <div class="table-row">
+      <div class="td"><div class="company-name">Bloom Health</div></div>
+      <div class="td"><span class="sector-text">Digital Health</span></div>
+      <div class="td"><span class="stage-badge">Seed</span></div>
+      <div class="td"><span class="date-text">Apr 12, 2026</span></div>
+      <div class="td">
+        <div class="status-dot" style="background:#FFD6A5;border:1px solid #C89050;"></div>
+        <span class="status-text">In Review</span>
+      </div>
+    </div>
+    <!-- Row 3 -->
+    <div class="table-row">
+      <div class="td"><div class="company-name">Vanta Robotics</div></div>
+      <div class="td"><span class="sector-text">Deep Tech</span></div>
+      <div class="td"><span class="stage-badge">Pre-Seed</span></div>
+      <div class="td"><span class="date-text">Apr 10, 2026</span></div>
+      <div class="td">
+        <div class="status-dot" style="background:#FFD6A5;border:1px solid #C89050;"></div>
+        <span class="status-text">In Review</span>
+      </div>
+    </div>
+    <!-- Row 4 -->
+    <div class="table-row">
+      <div class="td"><div class="company-name">Edgewise Systems</div></div>
+      <div class="td"><span class="sector-text">Infrastructure</span></div>
+      <div class="td"><span class="stage-badge">Series B</span></div>
+      <div class="td"><span class="date-text">Apr 7, 2026</span></div>
+      <div class="td">
+        <div class="status-dot" style="background:#B4FFB6;border:1px solid #7DC87F;"></div>
+        <span class="status-text">Score: 61</span>
+      </div>
+    </div>
+    <!-- Row 5 -->
+    <div class="table-row">
+      <div class="td"><div class="company-name">Fold Finance</div></div>
+      <div class="td"><span class="sector-text">Fintech</span></div>
+      <div class="td"><span class="stage-badge">Seed</span></div>
+      <div class="td"><span class="date-text">Mar 30, 2026</span></div>
+      <div class="td">
+        <div class="status-dot" style="background:#B4FFB6;border:1px solid #7DC87F;"></div>
+        <span class="status-text">Score: 82</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PAGE 2: UPLOAD                                     -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="nav">
+    <div class="nav-logo">NN</div>
+    <span class="nav-title">Innovia</span>
+    <span class="nav-sep">/</span>
+    <span class="nav-crumb">Upload</span>
+  </div>
+  <div class="upload-body">
+    <div class="upload-zone">
+      <div class="upload-arrow">↑</div>
+      <div>
+        <div class="upload-title">Drop a pitch deck here</div>
+        <div class="upload-sub">PDF only · Max 50MB</div>
+      </div>
+      <div class="upload-divider">
+        <div class="upload-divider-line"></div>
+        <span class="upload-or">or</span>
+        <div class="upload-divider-line"></div>
+      </div>
+      <div class="mint-btn"><span>→</span> Choose File</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PAGE 3: DEAL REVIEW                               -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="nav">
+    <div class="nav-logo">NN</div>
+    <span class="nav-title">Innovia</span>
+    <span class="nav-sep">/</span>
+    <span class="nav-crumb">Pipeline</span>
+    <span class="nav-sep">/</span>
+    <span class="nav-crumb-active">Meridian AI</span>
+  </div>
+  <div class="review-body">
+    <!-- Left: PDF viewer -->
+    <div class="review-left">
+      <div class="slide-strip">
+        <div class="slide-thumb active" style="background:#1a1a2e;">1</div>
+        <div class="slide-thumb" style="background:#0d0d0d;">2</div>
+        <div class="slide-thumb" style="background:#1a1a1a;">3</div>
+        <div class="slide-thumb" style="background:#0f1923;">4</div>
+        <div class="slide-thumb" style="background:#16213e;">5</div>
+        <div class="slide-thumb" style="background:#0d1b2a;">6</div>
+        <div class="slide-thumb" style="background:#1a1a2e;">7</div>
+        <div class="slide-thumb" style="background:#111;">8</div>
+        <div class="slide-thumb" style="background:#0d0d0d;">9</div>
+        <div class="slide-thumb" style="background:#1c1c1c;">10</div>
+        <div class="slide-thumb" style="background:#0f1923;">11</div>
+        <div class="slide-thumb" style="background:#161616;">12</div>
+        <div class="slide-thumb" style="background:#1a1a2e;">13</div>
+        <div class="slide-thumb" style="background:#0d0d0d;">14</div>
+      </div>
+      <div class="slide-main">
+        <!-- Slide 1 (hero, larger) -->
+        <div class="slide-card" style="background:#1a1a2e; border: 2px solid #B4FFB6; flex-shrink:0;">
+          <div class="slide-badge">SERIES A · $8M</div>
+          <div style="background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:32px 32px;position:absolute;inset:0;"></div>
+          <div class="slide-accent"></div>
+          <div class="slide-title">Meridian AI</div>
+          <div class="slide-sub">The operating system for enterprise intelligence</div>
+          <div class="slide-num">1 / 14</div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="slide-card" style="background:#0d0d0d; flex-shrink:0;">
+          <div class="slide-badge">SLIDE 2</div>
+          <div class="slide-accent"></div>
+          <div class="slide-title">The Problem</div>
+          <div class="slide-sub">Enterprise teams spend 40% of their time on data retrieval and synthesis</div>
+          <div class="slide-num">2 / 14</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: AI observations -->
+    <div class="review-right">
+      <div class="obs-header">
+        <div class="label-upper" style="margin-bottom:2px;">AI Analysis</div>
+        <div class="obs-company">Meridian AI</div>
+      </div>
+      <div class="obs-list">
+        <!-- Obs 1: Strength -->
+        <div class="obs-card">
+          <div class="obs-stripe" style="background:#B4FFB6;"></div>
+          <div class="obs-inner">
+            <div class="obs-meta">
+              <span class="obs-type-badge" style="color:#1a4d1c;background:#B4FFB6;">Strength</span>
+              <span class="obs-slide-chip">Slide 3</span>
+            </div>
+            <p class="obs-text">The founding team demonstrates exceptional depth — two repeat founders with prior exits in adjacent markets. This materially de-risks execution at the seed stage.</p>
+            <div class="obs-actions">
+              <span class="obs-rate-label">Rate this observation</span>
+              <div class="rate-btn" style="border-color:#0D0D0D;background:#0D0D0D;color:#B4FFB6;">↑</div>
+              <div class="rate-btn">↓</div>
+              <span class="reply-link">+ Reply</span>
+            </div>
+          </div>
+        </div>
+        <!-- Obs 2: Risk -->
+        <div class="obs-card">
+          <div class="obs-stripe" style="background:#FFD6D6;"></div>
+          <div class="obs-inner">
+            <div class="obs-meta">
+              <span class="obs-type-badge" style="color:#6b1a1a;background:#FFD6D6;">Risk</span>
+              <span class="obs-slide-chip">Slide 5</span>
+            </div>
+            <p class="obs-text">Market sizing methodology relies on top-down TAM estimates only. No bottoms-up validation is presented. At $18B, the claim feels optimistic without corroborating data.</p>
+            <div class="obs-actions">
+              <span class="obs-rate-label">Rate this observation</span>
+              <div class="rate-btn">↑</div>
+              <div class="rate-btn">↓</div>
+              <span class="reply-link">+ Reply</span>
+            </div>
+          </div>
+        </div>
+        <!-- Obs 3: Question -->
+        <div class="obs-card">
+          <div class="obs-stripe" style="background:#D6EAFF;"></div>
+          <div class="obs-inner">
+            <div class="obs-meta">
+              <span class="obs-type-badge" style="color:#1a3a6b;background:#D6EAFF;">Open Question</span>
+              <span class="obs-slide-chip">Slide 7</span>
+            </div>
+            <p class="obs-text">What is the rationale for a product-led growth motion in an enterprise segment that typically requires a dedicated sales cycle of 6–9 months?</p>
+            <div class="obs-actions">
+              <span class="obs-rate-label">Rate this observation</span>
+              <div class="rate-btn">↑</div>
+              <div class="rate-btn">↓</div>
+              <span class="reply-link">+ Reply</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="obs-footer">
+        <div class="obs-progress">1/6 observations rated</div>
+        <div class="mint-btn" style="width:100%;justify-content:center;padding:12px 20px;font-size:14px;"><span>→</span> Generate Overall Score</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PAGE 4: SCORE SUMMARY                             -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="page" style="background:#F9F9F9;">
+  <div class="nav">
+    <div class="nav-logo">NN</div>
+    <span class="nav-title">Innovia</span>
+    <span class="nav-sep">/</span>
+    <span class="nav-crumb">Pipeline</span>
+    <span class="nav-sep">/</span>
+    <span class="nav-crumb-active">Meridian AI</span>
+  </div>
+  <div class="score-body">
+    <div class="score-inner">
+      <div class="back-link">← Back to Deck</div>
+      <div class="score-hero">
+        <div style="flex-shrink:0;">
+          <div class="label-upper" style="margin-bottom:10px;">Overall Score</div>
+          <div class="score-number">74<span class="score-denom">/100</span></div>
+        </div>
+        <div style="flex:1;padding-bottom:8px;">
+          <p class="score-verdict">Meridian AI presents a compelling early-stage opportunity anchored by a strong founding team and meaningful early traction. The core product thesis is coherent, though market sizing and financial planning warrant deeper diligence. We recommend advancing to a partner call.</p>
+        </div>
+      </div>
+
+      <div class="breakdown-section">
+        <div class="label-upper" style="margin-bottom:20px;">Score Breakdown</div>
+
+        <!-- Team -->
+        <div class="dim-row">
+          <div><div class="dim-label">Team</div><div class="dim-score-num">88</div></div>
+          <div>
+            <div class="dim-bar-track"><div class="dim-bar-fill" style="width:88%;background:#B4FFB6;"></div></div>
+            <div class="dim-rationale">Two repeat founders, strong technical co-founder, relevant domain expertise.</div>
+          </div>
+          <div style="text-align:right;"><span class="dim-badge" style="color:#1a4d1c;background:#B4FFB6;">Strong</span></div>
+          <div class="dim-rating-btns">
+            <div class="rate-btn" style="border-color:#0D0D0D;background:#0D0D0D;color:#B4FFB6;">↑</div>
+            <div class="rate-btn">↓</div>
+          </div>
+        </div>
+        <!-- Market -->
+        <div class="dim-row">
+          <div><div class="dim-label">Market Size</div><div class="dim-score-num">62</div></div>
+          <div>
+            <div class="dim-bar-track"><div class="dim-bar-fill" style="width:62%;background:#FFF3CD;"></div></div>
+            <div class="dim-rationale">Large TAM claimed but lacks rigorous bottoms-up validation.</div>
+          </div>
+          <div style="text-align:right;"><span class="dim-badge" style="color:#5a4000;background:#FFF3CD;">Moderate</span></div>
+          <div class="dim-rating-btns"><div class="rate-btn">↑</div><div class="rate-btn">↓</div></div>
+        </div>
+        <!-- Product -->
+        <div class="dim-row">
+          <div><div class="dim-label">Product</div><div class="dim-score-num">78</div></div>
+          <div>
+            <div class="dim-bar-track"><div class="dim-bar-fill" style="width:78%;background:#B4FFB6;"></div></div>
+            <div class="dim-rationale">Clear differentiation on UX and data layer; defensibility is early.</div>
+          </div>
+          <div style="text-align:right;"><span class="dim-badge" style="color:#1a4d1c;background:#B4FFB6;">Strong</span></div>
+          <div class="dim-rating-btns"><div class="rate-btn">↑</div><div class="rate-btn">↓</div></div>
+        </div>
+        <!-- Traction -->
+        <div class="dim-row">
+          <div><div class="dim-label">Traction</div><div class="dim-score-num">81</div></div>
+          <div>
+            <div class="dim-bar-track"><div class="dim-bar-fill" style="width:81%;background:#B4FFB6;"></div></div>
+            <div class="dim-rationale">Impressive early ARR; design partner quality is high.</div>
+          </div>
+          <div style="text-align:right;"><span class="dim-badge" style="color:#1a4d1c;background:#B4FFB6;">Strong</span></div>
+          <div class="dim-rating-btns"><div class="rate-btn">↑</div><div class="rate-btn">↓</div></div>
+        </div>
+        <!-- Financials -->
+        <div class="dim-row">
+          <div><div class="dim-label">Financials</div><div class="dim-score-num">55</div></div>
+          <div>
+            <div class="dim-bar-track"><div class="dim-bar-fill" style="width:55%;background:#FFF3CD;"></div></div>
+            <div class="dim-rationale">Runway is tight; assumptions require stress-testing.</div>
+          </div>
+          <div style="text-align:right;"><span class="dim-badge" style="color:#5a4000;background:#FFF3CD;">Moderate</span></div>
+          <div class="dim-rating-btns"><div class="rate-btn">↑</div><div class="rate-btn">↓</div></div>
+        </div>
+      </div>
+
+      <div class="score-actions">
+        <div class="ghost-btn">← Back to Deck</div>
+        <div class="mint-btn"><span>→</span> Export Report</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.fonts.ready.then(() => {
+  setTimeout(() => window.print(), 500);
+});
+</script>
+</body>
+</html>
